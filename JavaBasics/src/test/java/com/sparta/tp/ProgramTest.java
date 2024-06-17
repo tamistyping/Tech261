@@ -24,10 +24,11 @@ public class ProgramTest {
     }
 
     @Test
-    @DisplayName("Given a time of 8, then the greeting should be Good Afternoon")
+    @DisplayName("Between the time of 13 to 18, the greeting should be Good Afternoon")
     void checkThat13GivesGoodAfternoon() {
-        int time = 13;
-        String actualGreeting = Program.getGreeting(time);
-        Assertions.assertEquals("Good afternoon!", actualGreeting);
+        for (int time = 13; time < 19; time++) {
+            String actualGreeting = Program.getGreeting(time);
+            Assertions.assertEquals("Good afternoon!", actualGreeting);
+        }
     }
 }
