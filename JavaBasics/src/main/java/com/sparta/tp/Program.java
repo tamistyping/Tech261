@@ -3,16 +3,18 @@ package com.sparta.tp;
 public class Program {
     public static void main(String[] args) {
         int timeOfDay = 10;
-        getGreeting(timeOfDay);
+        System.out.println(getGreeting(timeOfDay));
     }
 
-    private static void getGreeting(int timeOfDay) {
+    private static String getGreeting(int timeOfDay) {
+        String greeting;
         if (timeOfDay >= 5 && timeOfDay <= 12) {
-            System.out.println("Good morning!");
+            greeting = "Good morning!";
         } else if (timeOfDay >= 12 && timeOfDay <= 18) {
-            System.out.println("Good afternoon!");
+            greeting = "Good afternoon!";
         } else {
-            System.out.println("Good evening!");
+            greeting = "Good evening!";
         }
+        return greeting;
     }
 }
