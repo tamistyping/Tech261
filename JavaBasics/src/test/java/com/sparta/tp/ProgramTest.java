@@ -16,17 +16,18 @@ public class ProgramTest {
     }
 
     @Test
-    @DisplayName("Given a time of 8, then the greeting should be Good Morning")
+    @DisplayName("Between the time of 5 to 12, the greeting should be Good Morning")
     void checkThat8GivesGoodMorning() {
-        int time = 8;
-        String actualGreeting = Program.getGreeting(time);
-        Assertions.assertEquals("Good morning!", actualGreeting);
+        for (int time = 5; time < 12; time++) {
+            String actualGreeting = Program.getGreeting(time);
+            Assertions.assertEquals("Good morning!", actualGreeting);
+        }
     }
 
     @Test
-    @DisplayName("Between the time of 13 to 18, the greeting should be Good Afternoon")
+    @DisplayName("Between the time of 12 to 18, the greeting should be Good Afternoon")
     void checkThat13GivesGoodAfternoon() {
-        for (int time = 13; time < 19; time++) {
+        for (int time = 12; time < 19; time++) {
             String actualGreeting = Program.getGreeting(time);
             Assertions.assertEquals("Good afternoon!", actualGreeting);
         }
