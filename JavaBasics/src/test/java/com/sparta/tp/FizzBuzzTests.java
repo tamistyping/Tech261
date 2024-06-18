@@ -1,10 +1,11 @@
 package com.sparta.tp;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 public class FizzBuzzTests {
@@ -14,7 +15,8 @@ public class FizzBuzzTests {
     // If it's divisible by both, print "FizzBuzz"
 
     @Test
-    void GivenAnInputOfOneFizzBuzzReturnsOne() {
+    @DisplayName("Given an input of 1, returns 1")
+    void givenAnInputOfOneFizzBuzzReturnsOne() {
         //Arrange
         int input = 1;
         String expected = "1";
@@ -27,6 +29,7 @@ public class FizzBuzzTests {
     }
 
     @ParameterizedTest
+    @DisplayName("Given an input is not divisible by 3 or 5 returns that number")
     @CsvSource({"2, 2", "4, 4", "7, 7"})
     void givenInputsNotDivisibleByThreeOrFiveReturnsThatNumber(int input, String expected) {
         String actual = FizzBuzz.getFizzBuzzFrom(input);
@@ -35,6 +38,25 @@ public class FizzBuzzTests {
     }
 
     @ParameterizedTest
+    @DisplayName("Given a multiple of 5 returns Buzz")
+    @CsvSource({"5, Buzz", "10, Buzz", "25, Buzz"})
+    void givenAMultipleOfFiveReturnsBuzz(int input, String expected) {
+        String actual = FizzBuzz.getFizzBuzzFrom(input);
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @ParameterizedTest
+    @DisplayName("Given a multiple of 5 and 3 returns FizzBuzz")
+    @CsvSource({"15, FizzBuzz", "30, FizzBuzz", "90, FizzBuzz"})
+    void givenAMultipleOfFiveAndThreeReturnsFizzBuzz(int input, String expected) {
+        String actual = FizzBuzz.getFizzBuzzFrom(input);
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @ParameterizedTest
+    @DisplayName("Given a multiple 3 returns Fizz")
     @ValueSource(ints = {3, 6, 9})
     void givenAnInputOfThreeFizzBuzzReturnsFizz(int input) {
         String expected = "Fizz";
