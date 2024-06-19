@@ -1,4 +1,4 @@
-package com.sparta.tp;
+package com.sparta.tp.animals;
 
 public abstract class Animal {
     private final String name;

@@ -11,7 +11,8 @@ public class App {
         System.out.println(manish.getName());
         System.out.println(alex.getName());
 
-        Spartan.printSpartan(manish);
         Spartan.printSpartan(alex);
+        System.out.println(manish.equals(alex));
+        System.out.println(5==5);
     }
 }

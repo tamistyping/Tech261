@@ -1,5 +1,6 @@
 package com.sparta.tp;
 
+import com.sparta.tp.practice.Program;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

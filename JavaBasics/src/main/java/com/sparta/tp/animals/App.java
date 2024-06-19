@@ -1,4 +1,4 @@
-package com.sparta.tp;
+package com.sparta.tp.animals;
 
 public class App {
     public static void main(String[] args){

@@ -1,4 +1,4 @@
-package com.sparta.tp;
+package com.sparta.tp.animals;
 
 public interface Drinkable {
     void drink();

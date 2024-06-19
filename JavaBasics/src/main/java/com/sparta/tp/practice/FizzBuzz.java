@@ -1,4 +1,4 @@
-package com.sparta.tp;
+package com.sparta.tp.practice;
 
 public class FizzBuzz {
     public static String getFizzBuzzFrom(int number) {

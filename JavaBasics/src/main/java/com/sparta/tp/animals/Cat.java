@@ -1,4 +1,4 @@
-package com.sparta.tp;
+package com.sparta.tp.animals;
 
 public class Cat extends Animal{
     public Cat(String name, String breed, int age) {
