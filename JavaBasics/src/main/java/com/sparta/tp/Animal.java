@@ -30,4 +30,16 @@ public abstract class Animal {
     public void play(){
         System.out.println(name + " wants to play");
     }
+
+    public void eat(){
+        System.out.println("animal is eating"); //everyone is overriding
+    }
+
+    //name has to be the same
+    //1. return type
+    //2. type of parameters
+    //3. order parameters
+    public abstract void play(String name);
+
+    public abstract void eat(String name);
 }

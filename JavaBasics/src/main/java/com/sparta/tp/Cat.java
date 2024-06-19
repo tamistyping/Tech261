@@ -6,7 +6,16 @@ public class Cat extends Animal{
     }
 
     @Override
-    public void play() {
+    public void play(String name) {
         System.out.println(super.getName() + " does not want to play");
+    }
+
+    @Override
+    public void eat(String name) {
+        System.out.println(name + " wants to eat with " + super.getName());
+    }
+
+    public void climb(){
+        System.out.println("Cat is climbing");
     }
 }
