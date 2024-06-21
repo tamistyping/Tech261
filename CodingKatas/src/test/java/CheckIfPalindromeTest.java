@@ -47,4 +47,13 @@ public class CheckIfPalindromeTest {
         boolean actual = CheckIfPalindrome.checkIfPalindrome(input);
         Assertions.assertEquals(expected, actual);
     }
+
+    @Test
+    @DisplayName("Test longest Palindrome in string")
+    void longestPalindromeInString() {
+        String input = "hello its tam and i got caught by a radar in my racecar";
+        String expected = "racecar";
+        String actual = CheckIfPalindrome.getLongestPalindromes(input);
+        Assertions.assertEquals(expected, actual);
+    }
 }
