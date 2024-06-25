@@ -6,4 +6,3 @@ public class Cat implements Speakable{
         return "meow";
     }
 }
-}
