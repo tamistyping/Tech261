@@ -14,15 +14,26 @@ public class App {
 
         HashSet<String> animals = new HashSet<>();
 
+        System.out.println("\nAnimal HashSet: ");
         animals.add("Gorilla");
         animals.add("Lion");
         animals.add("Macaw");
+        animals.add("Crocodile");
+        animals.add("Dog");
+
+
 
         for (String animal : animals) {
             System.out.println(animal);
         }
 
-//        System.out.println("\n" + animals.contains("Lion"));
+        HashSet<String> clonedAnimals = (HashSet<String>) animals.clone();
+        System.out.println("\nCloned Animal HashSet: ");
+        for (String animal : clonedAnimals) {
+            System.out.println(animal);
+        }
+        animals.remove("Lion");
+        System.out.println("\n" + animals.contains("Lion"));
     }
 }
 
