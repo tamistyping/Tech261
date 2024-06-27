@@ -1,6 +1,8 @@
 package com.sparta.tp;
 
+import java.io.IOException;
 import java.util.logging.ConsoleHandler;
+import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,6 +14,16 @@ public class App {
         ConsoleHandler consoleHandler = new ConsoleHandler();
         consoleHandler.setLevel(Level.ALL);
         logger.addHandler(consoleHandler);
+
+        try {
+            FileHandler fileHandler = new FileHandler("src/main/resources/log-file.log", true);
+            fileHandler.setLevel(Level.ALL);
+            fileHandler.setFormatter(new CustomFormatter());
+            logger.addHandler(fileHandler);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        consoleHandler.setFormatter(new CustomFormatter());
 //        logger.log(Level.INFO, "this is an info message");
         logger.setUseParentHandlers(false);
         logger.setLevel(Level.ALL);
