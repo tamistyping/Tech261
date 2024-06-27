@@ -20,7 +20,7 @@ public class ConvertToInt {
         StringBuilder result = new StringBuilder();
 
         for (int number : arr) {
-            LOGGER.info("Appending number: " + number);
+            LOGGER.fine("Appending number: " + number);
             result.append(Math.abs(number));
         }
 
@@ -38,6 +38,7 @@ public class ConvertToInt {
             fileHandler.setLevel(Level.ALL);
             fileHandler.setFormatter(new SimpleFormatter());
             LOGGER.addHandler(fileHandler);
+            LOGGER.setLevel(Level.ALL);
         } catch (IOException e){
             throw new RuntimeException("Failed to run log file handler", e);
         }
