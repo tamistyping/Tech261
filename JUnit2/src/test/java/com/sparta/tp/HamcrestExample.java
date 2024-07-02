@@ -41,10 +41,17 @@ public class HamcrestExample {
         void checkThatSpartanHasAFieldCalledCourseSetToJava() {
             assertThat(tam, hasProperty("course", equalTo("Java")));
         }
+
+        @Test
+        @DisplayName("Check that Spartan's course date is before today's date")
+        void checkCourseDateBeforeToday() {
+            LocalDate today = LocalDate.now();
+            assertThat(tam.getStartDate(), lessThanOrEqualTo(today));
+        }
     }
 
     @Nested
-    @DisplayName("Hamcrest stirng methods")
+    @DisplayName("Hamcrest string methods")
     class HamcrestStringMethods{
         @Test
         @DisplayName("Check that name is not empty or null")
@@ -57,5 +64,12 @@ public class HamcrestExample {
         void checkThatNameEndsWithAm() {
             assertThat(tam.getName(), endsWith("am"));
         }
+
+        @Test
+        @DisplayName("Check that name starts with T")
+        void checkThatNameStartsWithT() {
+            assertThat(tam.getName(), startsWith("T"));
+        }
+
     }
 }

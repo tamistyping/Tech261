@@ -14,7 +14,6 @@ public class SpartanTests {
     @Disabled("Waiting for method to be completed")
     @DisplayName("Check name of Spartan")
     public void checkNameOfSpartan() {
-        // Replace this with actual test logic
         String spartanName = "Leonidas"; // Replace with actual name from your application
         Assertions.assertEquals("Leonidas", spartanName, "Spartan name should be Leonidas");
     }
