@@ -8,6 +8,7 @@ public class App {
         DatabaseConnection.getConnection();
 
         CustomersDAO customersDAO = new CustomersDAO();
+
 //        customersDAO.printAllCustomers();
         customersDAO.printCustomerByName("Maria Anders");
     }
