@@ -1,6 +1,7 @@
 package com.sparta.tp.springjpa;
 
 import com.sparta.tp.springjpa.repositories.AuthorRepository;
+import com.sparta.tp.springjpa.utilities.AuthorAdder;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,13 +18,19 @@ public class SpringJpaApplication {
         SpringApplication.run(SpringJpaApplication.class, args);
     }
 
-    //bean -> authorrepo -> class / command line runner -> class / authorrepo -> object of both -> runner (repo)
+
     @Bean
     public CommandLineRunner runner(AuthorRepository repository) {
         return args -> {
             logger.info("Hello from CommandLineRunner");
             logger.warning("Here is another line from CommandLineRunner");
-            logger.info(repository.findAll().toString());
+
+            AuthorAdder authorAdder = new AuthorAdder(repository);
+
+            authorAdder.addAuthor("Roald Dahl");
+            authorAdder.addAuthor("Michael Morpurgo");
+            authorAdder.addAuthor("Bob");
+            logger.info("Author(s) successfully added.");
         };
     }
 
