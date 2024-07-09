@@ -3,7 +3,7 @@ package com.sparta.tp.springjpa;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component // custom component
 //this class is now marked as a component
 //spring will now figure out how to build from this
 public class CustomCommandLineRunner implements CommandLineRunner {

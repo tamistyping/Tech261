@@ -31,4 +31,11 @@ public class AuthorEntity {
         this.fullName = fullName;
     }
 
+    @Override
+    public String toString() {
+        return "AuthorEntity{" +
+                "id=" + id +
+                ", fullName='" + fullName + '\'' +
+                '}';
+    }
 }
