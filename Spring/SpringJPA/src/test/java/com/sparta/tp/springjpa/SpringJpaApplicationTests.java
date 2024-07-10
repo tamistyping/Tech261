@@ -1,52 +1,75 @@
 package com.sparta.tp.springjpa;
 
 import com.sparta.tp.springjpa.repositories.AuthorRepository;
-import com.sparta.tp.springjpa.repositories.BookRepository;
 import com.sparta.tp.springjpa.entities.AuthorEntity;
-import com.sparta.tp.springjpa.entities.BookEntity;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @SpringBootTest
 class SpringJpaApplicationTests {
 
     @Autowired
     AuthorRepository authorRepository;
-    @Autowired
-    BookRepository bookRepository;
 
     @Test
-    @DisplayName("check that I can see all Authors")
+    @DisplayName("Check that I can see all Authors")
     void checkThatICanSeeAllAuthors() {
-        System.out.println(authorRepository.findAll());
+        List<AuthorEntity> authors = authorRepository.findAll();
+        authors.forEach(System.out::println);
     }
 
     @Test
     @DisplayName("Check that I can find an author by their ID")
     void checkThatICanFindAnAuthorByTheirID() {
-        System.out.println(authorRepository.findById(1));
+        Optional<AuthorEntity> author = authorRepository.findById(1);
+        author.ifPresent(System.out::println);
     }
 
     @Test
-    @DisplayName("Check that I can find authors by their names")
-    void checkThatICanFindAuthorsByTheirNames() {
-        List<AuthorEntity> authors = new ArrayList<>(authorRepository.findAllByFullName("Manish"));
-        for (AuthorEntity author : authors) {
-            System.out.println(author.toString());
+    @DisplayName("Check that I can update an author's name")
+    void checkThatICanUpdateAnAuthorsName() {
+        AuthorEntity author = new AuthorEntity();
+        author.setFullName("Paul Smith");
+        author = authorRepository.save(author);
+
+        int rowsUpdated = authorRepository.updateAuthorName(1, "Simon Parker");
+        if (rowsUpdated > 0) {
+            System.out.println("Author name updated successfully.");
+        } else {
+            System.out.println("Failed to update author name.");
         }
     }
 
     @Test
-    @DisplayName("Check that I can see all books")
-    void checkThatICanSeeAllBooks() {
-        List<BookEntity> books = new ArrayList<>(bookRepository.findAll());
-        for (BookEntity book : books) {
-            System.out.println(book.toString());
-        }
+    @DisplayName("Check that I can delete an author by their ID")
+    void checkThatICanDeleteAnAuthorByTheirID() {
+
+        AuthorEntity author = new AuthorEntity();
+        author.setFullName("Paul Smith");
+        author = authorRepository.save(author);
+
+        Integer authorId = author.getId();
+
+        authorRepository.deleteById(authorId);
+
+        assertFalse(authorRepository.findById(authorId).isPresent());
     }
 
+    @Test
+    @DisplayName("Check that I can find all authors with only one book")
+    void checkThatICanFindAllAuthorsWithOnlyOneBook() {
+        List<AuthorEntity> authorsWithOneBook = authorRepository.findAuthorsWithOneBook();
+        authorsWithOneBook.forEach(System.out::println);
+
+        int expectedNumberOfAuthors = 2;
+        assertEquals(expectedNumberOfAuthors, authorsWithOneBook.size());
+    }
 }
