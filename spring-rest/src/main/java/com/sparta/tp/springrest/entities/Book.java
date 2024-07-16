@@ -1,13 +1,16 @@
 package com.sparta.tp.springrest.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "Books", schema = "Library")
+@Table(name = "books", schema = "library")
 public class Book {
     @Id
     @Column(name = "book_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Size(max = 100)
@@ -16,6 +19,7 @@ public class Book {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
+    @JsonBackReference
     private Author author;
 
     public Integer getId() {
@@ -41,5 +45,4 @@ public class Book {
     public void setAuthor(Author author) {
         this.author = author;
     }
-
 }

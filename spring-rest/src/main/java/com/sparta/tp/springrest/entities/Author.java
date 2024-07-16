@@ -1,10 +1,12 @@
 package com.sparta.tp.springrest.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "Authors", schema = "Library")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Author {
     @Id
     @Column(name = "author_id", nullable = false)
