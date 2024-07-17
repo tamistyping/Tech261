@@ -1,14 +1,23 @@
 package com.sparta.tp.springrest.controllers;
 
 import com.sparta.tp.springrest.entities.Author;
+import com.sparta.tp.springrest.exceptions.ResourceNotFoundException;
 import com.sparta.tp.springrest.repositories.AuthorRepository;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/authors")
@@ -21,21 +30,12 @@ public class AuthorsController {
     }
 
     @GetMapping
-    public List<Author> getAuthors(){
+    public List<Author> getAuthors() {
         return authorRepository.findAll();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Author> getAuthorById(@PathVariable int id){
-        Author author = authorRepository.findById(id).orElse(null);
-        if (author == null){
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(author);
-    }
-
     @PostMapping
-    public ResponseEntity<Author> createAuthor(@RequestBody Author author, HttpServletRequest request){
+    public ResponseEntity<Author> createAuthor(@RequestBody @Valid Author author, HttpServletRequest request) {
         Author newAuthor = authorRepository.save(author);
 
         URI location = URI.create(request.getRequestURL().toString() + "/" + newAuthor.getId());
@@ -43,7 +43,7 @@ public class AuthorsController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Author> updateAuthor(@PathVariable int id, @RequestBody Author author){
+    public ResponseEntity<Author> updateAuthor(@PathVariable int id, @RequestBody Author author) {
 
 
         if (id != author.getId()) {
@@ -76,5 +76,31 @@ public class AuthorsController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/hateoas/authors")
+    public CollectionModel<EntityModel<Author>> getAuthorsHateoas() {
+        List<EntityModel<Author>> authors = authorRepository.findAll().stream().map(author -> {
+            List<Link> bookLinks = author.getBooks().stream().map(book -> WebMvcLinkBuilder.linkTo(methodOn(BooksController.class).getBook(book.getId())).withRel(book.getTitle())).collect(Collectors.toList());
+            Link selfLink = WebMvcLinkBuilder.linkTo(methodOn(AuthorsController.class).getAuthor(author.getId())).withSelfRel();
+            Link relLink = WebMvcLinkBuilder.linkTo(methodOn(AuthorsController.class).getAuthors()).withRel("author");
+            return EntityModel.of(author, selfLink, relLink).add(bookLinks);
+        }).collect(Collectors.toList());
+        return CollectionModel.of(authors, WebMvcLinkBuilder.linkTo(methodOn(AuthorsController.class).getAuthorsHateoas()).withSelfRel());
+    }
+
+    @GetMapping("/{id}")
+    public EntityModel<Author> getAuthor(@PathVariable Integer id) {
+        Author author = authorRepository.findById(id).orElse(null);
+        if (author == null) {
+            throw new ResourceNotFoundException("no author with id " + id);
+        }
+        Link selfLink = WebMvcLinkBuilder.linkTo(methodOn(AuthorsController.class).getAuthor(id)).withSelfRel();
+
+        Link relLink = WebMvcLinkBuilder.linkTo(methodOn(AuthorsController.class).getAuthors()).withRel("author");
+
+        EntityModel<Author> entityModel = EntityModel.of(author, selfLink, relLink);
+
+        return entityModel;
     }
 }
