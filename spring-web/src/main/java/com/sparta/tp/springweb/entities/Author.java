@@ -11,7 +11,7 @@ public class Author {
     @Column(name = "author_id", nullable = false)
     private Integer id;
 
-    @Size(max = 40)
+    @Size(max = 40, message = "Author name must be 40 characters or less")
     @Column(name = "full_name", length = 40)
     private String fullName;
 
