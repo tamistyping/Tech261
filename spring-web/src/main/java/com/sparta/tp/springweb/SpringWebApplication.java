@@ -16,12 +16,12 @@ public class SpringWebApplication {
         SpringApplication.run(SpringWebApplication.class, args);
     }
 
-    @Bean
-    CommandLineRunner runner(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        return args -> {
-            userRepository.save(new User("admin", passwordEncoder.encode("password"), "ROLE_ADMIN"));
-            userRepository.save(new User("user", passwordEncoder.encode("password"), "ROLE_USER"));
-        };
-    }
+//    @Bean
+//    CommandLineRunner runner(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+//        return args -> {
+//            userRepository.save(new User("admin", passwordEncoder.encode("password"), "ROLE_ADMIN"));
+//            userRepository.save(new User("user", passwordEncoder.encode("password"), "ROLE_USER"));
+//        };
+//    }
 
 }

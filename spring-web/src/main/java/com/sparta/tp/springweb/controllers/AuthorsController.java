@@ -3,6 +3,7 @@ package com.sparta.tp.springweb.controllers;
 import com.sparta.tp.springweb.entities.Author;
 import com.sparta.tp.springweb.repositories.AuthorRepository;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
